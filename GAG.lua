@@ -61,7 +61,7 @@ local function applyEggESP(eggModel, petName)
 
     local billboard = Instance.new("BillboardGui")
     billboard.Name = "PetBillboard"
-    billboard.Size = UDim2.new(0, 270, 0, 50)
+    billboard.Size = UDim2.new(0, 2700, 0, 50)
     billboard.StudsOffset = Vector3.new(0, 4.5, 0)
     billboard.AlwaysOnTop = true
     billboard.MaxDistance = 500
