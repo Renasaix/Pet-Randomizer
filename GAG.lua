@@ -1,4 +1,3 @@
--- Visual pet hatch simulator with drag, ESP, auto random, pet age loader
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")
@@ -152,6 +151,9 @@ local function countdownAndRandomize(button)
 end
 
 -- 🌿 GUI Setup
+local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+screenGui.Name = "PetHatchGui"
+
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 260, 0, 290) -- Increased height
 frame.Position = UDim2.new(0, 20, 0, 100)
@@ -163,7 +165,7 @@ local stroke = Instance.new("UIStroke", frame)
 stroke.Color = Color3.fromRGB(255, 0, 0)
 stroke.Thickness = 2
 frame.Parent = screenGui
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10) 
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 30)
@@ -256,4 +258,4 @@ autoBtn.MouseButton1Click:Connect(function()
                     autoRunning = false
                     autoBtn.Text = "🔁 Auto Randomize: OFF"
                     return
-                end
+                end can you find where i can change the thickness of text in egg labels? and where i can put the emojis of it
