@@ -1,4 +1,3 @@
--- Visual pet hatch simulator with drag, ESP, auto random, pet age loader
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
 local TweenService = game:GetService("TweenService")
@@ -21,7 +20,7 @@ local petTable = {
     ["Paradise Egg"] = { "Ostrich", "Peacock", "Capybara" },
     ["Dinosaur Egg"] = { "Raptor", "Triceratops", "Stegosaurus" },
     ["Primal Egg"] = { "Parasaurolophus", "Iguanodon", "Pachycephalosaurus" },
-    ["Zen Egg"] = { "Shiba Inu", "Tanuki", "Kappa", },
+    ["Zen Egg"] = { "Shiba Inu", "Tanuki", "Kappa", "Kitsune" },
 }
 
 local espEnabled = trueS
@@ -67,15 +66,18 @@ local function applyEggESP(eggModel, petName)
     billboard.MaxDistance = 500
     billboard.Parent = basePart
 
- local emoji = eggEmojis[eggModel.Name] or "🥚"
-if not hatchReady then
-    label.Text = emoji .. " " .. eggModel.Name .. " | 🐾 " .. petName .. " (Not Ready)"
-    label.TextColor3 = Color3.fromRGB(160, 160, 160)
-else
-    label.Text = emoji .. " " .. eggModel.Name .. " | 🐾 " .. petName
-    label.TextColor3 = Color3.new(1, 1, 1)
-end
-
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.Text = eggModel.Name .. " | " .. petName
+    if not hatchReady then
+        label.Text = eggModel.Name .. " | " .. petName .. " (Not Ready)"
+        label.TextColor3 = Color3.fromRGB(160, 160, 160)
+        label.TextStrokeTransparency = 0.5
+    else
+        label.TextColor3 = Color3.new(1, 1, 1)
+        label.TextStrokeTransparency = 0
+    end
     label.TextScaled = true
     label.Font = Enum.Font.FredokaOne
     label.Parent = billboard
@@ -256,9 +258,4 @@ autoBtn.MouseButton1Click:Connect(function()
                     autoRunning = false
                     autoBtn.Text = "🔁 Auto Randomize: OFF"
                     return
-                end
-            end
-            wait(1)
-        end
-    end)()
-end)
+                end can you find where i can change the thickness of text in egg labels? and where i can put the emojis of it
