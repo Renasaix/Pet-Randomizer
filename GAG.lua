@@ -152,23 +152,18 @@ local function countdownAndRandomize(button)
 end
 
 -- 🌿 GUI Setup
-local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-screenGui.Name = "PetHatchGui"
-
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 260, 0, 220) -- Fits just the title + 3 buttons
+frame.Size = UDim2.new(0, 260, 0, 290) -- Increased height
 frame.Position = UDim2.new(0, 20, 0, 100)
 frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
-frame.BackgroundTransparency = 0
+frame.BorderColor3 = Color3.fromRGB(255, 0, 0) -- Optional green outline like in image
+frame.BackgroundTransparency = 0 -- Fully solid
 frame.BorderSizePixel = 0
-frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
-
 local stroke = Instance.new("UIStroke", frame)
 stroke.Color = Color3.fromRGB(255, 0, 0)
 stroke.Thickness = 2
-
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 frame.Parent = screenGui
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10) 
 
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 30)
