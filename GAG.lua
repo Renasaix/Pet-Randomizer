@@ -151,63 +151,75 @@ local function countdownAndRandomize(button)
     button.Text = "🎲 Randomize Pets"
 end
 
--- 🌿 GUI Setup 
+-- 🌿 GUI Setup
 local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 screenGui.Name = "PetHatchGui"
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 260)
+frame.Size = UDim2.new(0, 260, 0, 220) -- Fits just the title + 3 buttons
 frame.Position = UDim2.new(0, 20, 0, 100)
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
+frame.BackgroundTransparency = 0
 frame.BorderSizePixel = 0
-frame.Parent = screenGui
+frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
 
 local stroke = Instance.new("UIStroke", frame)
 stroke.Color = Color3.fromRGB(255, 0, 0)
 stroke.Thickness = 2
 
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 12)
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+frame.Parent = screenGui
 
--- 🐾 Title
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 30)
-title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "🐾 Pet Randomizer ✨"
+title.Text = "🐾 Pet Randomizer Max 🦊"
 title.Font = Enum.Font.FredokaOne
-title.TextSize = 24
+title.TextSize = 22
 title.TextColor3 = Color3.fromRGB(255, 0, 0)
 
--- 👇 Dragging setup
+-- 👇 Dragging
 local drag = Instance.new("TextButton", title)
 drag.Size = UDim2.new(1, 0, 1, 0)
 drag.Text = ""
 drag.BackgroundTransparency = 1
 
--- 🟣 Randomize Button
+local dragging, offset
+drag.MouseButton1Down:Connect(function()
+    dragging = true
+    offset = Vector2.new(mouse.X - frame.Position.X.Offset, mouse.Y - frame.Position.Y.Offset)
+end)
+UserInputService.InputEnded:Connect(function()
+    dragging = false
+end)
+RunService.RenderStepped:Connect(function()
+    if dragging then
+        frame.Position = UDim2.new(0, mouse.X - offset.X, 0, mouse.Y - offset.Y)
+    end
+end)
+
+-- 🎲 Randomize Button
 local randomizeBtn = Instance.new("TextButton", frame)
 randomizeBtn.Size = UDim2.new(1, -20, 0, 40)
 randomizeBtn.Position = UDim2.new(0, 10, 0, 40)
 randomizeBtn.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
-randomizeBtn.Text = "🎲 Randomize Pets"
+randomizeBtn.Text = "🎲 Randomize Pets 💀"
 randomizeBtn.TextSize = 20
 randomizeBtn.Font = Enum.Font.FredokaOne
 randomizeBtn.TextColor3 = Color3.new(1, 1, 1)
-randomizeBtn.Parent = frame
 randomizeBtn.MouseButton1Click:Connect(function()
     countdownAndRandomize(randomizeBtn)
 end)
 
--- 👁️ ESP Toggle Button
+-- 👁️ ESP Toggle
 local toggleBtn = Instance.new("TextButton", frame)
 toggleBtn.Size = UDim2.new(1, -20, 0, 40)
 toggleBtn.Position = UDim2.new(0, 10, 0, 90)
-toggleBtn.BackgroundColor3 = Color3.fromRGB(230, 128, 150)
-toggleBtn.Text = "👁️ ESP: OFF"
+toggleBtn.BackgroundColor3 = Color3.fromRGB(205, 92, 122) -- Light pink
+toggleBtn.Text = "👁️ ESP: ON"
 toggleBtn.TextSize = 18
 toggleBtn.Font = Enum.Font.FredokaOne
 toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-toggleBtn.Parent = frame
 toggleBtn.MouseButton1Click:Connect(function()
     espEnabled = not espEnabled
     toggleBtn.Text = espEnabled and "👁️ ESP: ON" or "👁️ ESP: OFF"
@@ -220,37 +232,24 @@ toggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- 🔁 Auto Button + Status
+-- 🔁 Auto Randomize Button
 local autoBtn = Instance.new("TextButton", frame)
 autoBtn.Size = UDim2.new(1, -20, 0, 40)
 autoBtn.Position = UDim2.new(0, 10, 0, 140)
-autoBtn.BackgroundColor3 = Color3.fromRGB(145, 125, 170)
+autoBtn.BackgroundColor3 = Color3.fromRGB(134, 87, 133) -- Light blue
 autoBtn.Text = "🔁 Auto Randomize: OFF"
-autoBtn.TextSize = 17
+autoBtn.TextSize = 16
 autoBtn.Font = Enum.Font.FredokaOne
 autoBtn.TextColor3 = Color3.new(1, 1, 1)
-autoBtn.Parent = frame
 
-local eggStatus = Instance.new("TextLabel", frame)
-eggStatus.Size = UDim2.new(1, -20, 0, 20)
-eggStatus.Position = UDim2.new(0, 10, 0, 185)
-eggStatus.Text = "Zen Egg"
-eggStatus.Font = Enum.Font.FredokaOne
-eggStatus.TextSize = 16
-eggStatus.TextColor3 = Color3.fromRGB(255, 255, 255)
-eggStatus.BackgroundTransparency = 1
-
-local readyStatus = Instance.new("TextLabel", frame)
-readyStatus.Size = UDim2.new(1, -20, 0, 20)
-readyStatus.Position = UDim2.new(0, 10, 0, 205)
-readyStatus.Text = "Ready"
-readyStatus.Font = Enum.Font.FredokaOne
-readyStatus.TextSize = 16
-readyStatus.TextColor3 = Color3.fromRGB(255, 255, 255)
-readyStatus.BackgroundTransparency = 1
-
--- ✅ Auto logic
 local autoRunning = false
+local bestPets = {
+    ["Raccoon"] = true, ["Dragonfly"] = true, ["Queen Bee"] = true,
+    ["Disco Bee"] = true, ["Fennec Fox"] = true, ["Fox"] = true,
+    ["Mimic Octopus"] = true, ["T-Rex"] = true, ["Spinosaurus"] = true,
+    ["Kitsune"] = true
+}
+
 autoBtn.MouseButton1Click:Connect(function()
     autoRunning = not autoRunning
     autoBtn.Text = autoRunning and "🔁 Auto Randomize: ON" or "🔁 Auto Randomize: OFF"
@@ -263,9 +262,3 @@ autoBtn.MouseButton1Click:Connect(function()
                     autoBtn.Text = "🔁 Auto Randomize: OFF"
                     return
                 end
-            end
-            task.wait(3)
-        end
-    end)()
-end)
-
