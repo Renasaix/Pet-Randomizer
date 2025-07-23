@@ -21,24 +21,7 @@ local petTable = {
     ["Paradise Egg"] = { "Ostrich", "Peacock", "Capybara" },
     ["Dinosaur Egg"] = { "Raptor", "Triceratops", "Stegosaurus" },
     ["Primal Egg"] = { "Parasaurolophus", "Iguanodon", "Pachycephalosaurus" },
-    ["Zen Egg"] = { "Shiba Inu", "Tanuki", "Kappa", "Kitsune" },
-}
-
-local eggEmojis = {
-    ["Common Egg"] = "🐶",
-    ["Uncommon Egg"] = "🐔",
-    ["Rare Egg"] = "🐷",
-    ["Legendary Egg"] = "🐢",
-    ["Mythical Egg"] = "🐿️",
-    ["Bug Egg"] = "🐛",
-    ["Night Egg"] = "🦉",
-    ["Bee Egg"] = "🐝",
-    ["Anti Bee Egg"] = "🪰",
-    ["Oasis Egg"] = "🦊",
-    ["Paradise Egg"] = "🦚",
-    ["Dinosaur Egg"] = "🦖",
-    ["Primal Egg"] = "🦕",
-    ["Zen Egg"] = "🧘",
+    ["Zen Egg"] = { "Shiba Inu", "Tanuki", "Kappa", },
 }
 
 local espEnabled = trueS
