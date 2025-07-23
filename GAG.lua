@@ -265,3 +265,13 @@ autoBtn.MouseButton1Click:Connect(function()
         end
     end)()
 end)
+
+-- 👤 Credit
+local credit = Instance.new("TextLabel", frame)
+credit.Size = UDim2.new(1, 0, 0, 20)
+credit.Position = UDim2.new(0, 0, 0, 22)
+credit.BackgroundTransparency = 1
+credit.Text = "Created by - Zyferion"
+credit.Font = Enum.Font.FredokaOne
+credit.TextSize = 14
+credit.TextColor3 = Color3.fromRGB(200, 200, 200)
