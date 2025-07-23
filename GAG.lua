@@ -156,7 +156,7 @@ local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 screenGui.Name = "PetHatchGui"
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 260, 0, 290) -- Increased height
+frame.Size = UDim2.new(0, 260, 0, 200) -- Decrease height
 frame.Position = UDim2.new(0, 20, 0, 100)
 frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- Black background
 frame.BorderColor3 = Color3.fromRGB(255, 0, 0) -- Optional green outline like in image
